@@ -14738,8 +14738,8 @@ gg==
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <ul>
-<li>K-fold cross validation is a ML technique where the dataset is partitioned in K sets. K-1 sets are then used to train the model and the reamining set is used to test it (and contains 1/K of the data). This is repeated K times, where in each iteration a different set is used as a test set.</li>
-<li>K-fold is often used in grid search to achieve more accurate results when searching for optimal parameters. K-fold helps us understand if a model has high bias or variance, this is how well does the model generalise.</li>
+<li>K-fold cross validation is a ML technique where the dataset is partitioned in K sets. K-1 sets are then used to train the model and the remaining set is used to test it (and contains 1/K of the data). This is repeated K times, where in each iteration a different set is used as a validation set. By default, the shuffle is performed sequentially, which could be problematic if we sorted the data during the collection phase. Shuffling the data would remove any bias introduced during the compilation of the data.</li>
+<li>When K-fold is used with GridSearch, the training data is split into validation sets. For each pararmeter combination we calculate the score for each fold. The ideal parameters are chosen from the average score (obtained from each fold) for each parameter combination, which in theory gives an idea how well the model generalises (as we test for independent sets of data). If we used mean squared error as a metric, we would choose the parameters associated to the lowest average MSE. At the end we use our test set to evaluate the parameters obtained from GridSearch. If we had just chosen performed grid search on the whole training set we would likely observe a higher bias and variance, than when we use cross validation with K-folds, and the final model would perform worse in the test set.</li>
 </ul>
 
 </div>
@@ -14977,6 +14977,8 @@ Predicted selling price for Client 3&#39;s home: $931,636.36
 <li>Client 1: 403,025.00 USD</li>
 <li>Client 2: 237,478.72 USD</li>
 <li><p>Client 3: 931,636.36 USD</p>
+</li>
+<li><p>All of the values are within the minimum 105,000 USD and the maximum of 1,024,800 USD, which indicates that all theses values are plausible. The house of Client 3 is much higher than the mean (more than two standard deviaitons from the mean) and if the house prices followed a normal distribution (which is not the case since the average is higher than median) we could consider it an outlier, and should be careful with this prediction. Higher end houses are always more difficult to evaluate, since they usually have an inflated value that is not always possible to reflect with any house features and is rather associated with the buyer's mentality.</p>
 </li>
 <li><p>It is difficult to determine if these prices are reasonable, considering that the feature values are quite varied. However, it is unsurprising that client 3 has the most valuable house, since it has the largest number of rooms, lowest neighbourhood poverty level and lowest student to teacher ratio. Similarly client 2 has the least valueable house, since it has smallest number of rooms, highest neighbourhood poverty level and highest student to teacher ratio.</p>
 </li>
